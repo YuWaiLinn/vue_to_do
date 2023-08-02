@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive To-Do List</title>
+  <!-- Link to Vue.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>My To-Do List</h1>
+    
+    <!-- Input field and add button -->
+    <div>
+      <input v-model="newTask" @keyup.enter="addTask" placeholder="Enter a new task">
+      <button @click="addTask">Add</button>
+    </div>
+    
+    <!-- List of tasks -->
+    <ul>
+      <li v-for="(task, index) in tasks" :key="index">
+        {{ task }}
+        <button @click="removeTask(index)">Remove</button>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    // Vue instance
+    new Vue({
+      el: '#app',
+      data: {
+        newTask: '',
+        tasks: []
+      },
+      methods: {
+        // Add a new task to the list
+        addTask: function() {
+          if (this.newTask.trim() !== '') {
+            this.tasks.push(this.newTask.trim());
+            this.newTask = '';
+          }
+        },
+        // Remove a task from the list
+        removeTask: function(index) {
+          this.tasks.splice(index, 1);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
